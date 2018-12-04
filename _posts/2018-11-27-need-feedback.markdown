@@ -409,8 +409,8 @@ $$
 </center>
 </div>
 {::options parse_block_html="false" /}
-* In columns `2, 4, 5, 6` of each of the values, there’s an even occurrence of $$\text{'0'}$$ and $$\text{'1'}$$ bits.
-* In column `3`, $$\text{'0'}$$ only occurs once, and $$\text{'1'}$$ occurs 3 times.
+* In columns `2, 4, 6` of each of the values, there’s an even occurrence of $$\text{'0'}$$ and $$\text{'1'}$$ bits.
+* In column `3, 5`, $$\text{'0'}$$ only occurs once, and $$\text{'1'}$$ occurs 3 times.
 * In column `1` - **only** $$\text{'0'}$$ bits occur!
 This shows a significant bias in the Sbox - the MSB in each input value leading to output value `7` is $$\text{'0'}$$ in 4 out of 4 cases. 
 
