@@ -1,0 +1,368 @@
+\begin{center}
+\end{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,512); %set diagram left start at 0, and has height of 512
+
+%Shape: Rectangle [id:dp07553143722279687] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (240.5,67.07) -- (289.5,67.07) -- (289.5,96.07) -- (240.5,96.07) -- cycle ;
+\draw   (160,116) .. controls (160,111.03) and (164.03,107) .. (169,107) .. controls (173.97,107) and (178,111.03) .. (178,116) .. controls (178,120.97) and (173.97,125) .. (169,125) .. controls (164.03,125) and (160,120.97) .. (160,116) -- cycle ; \draw   (160,116) -- (178,116) ; \draw   (169,107) -- (169,125) ;
+\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (256,116) .. controls (256,111.03) and (260.03,107) .. (265,107) .. controls (269.97,107) and (274,111.03) .. (274,116) .. controls (274,120.97) and (269.97,125) .. (265,125) .. controls (260.03,125) and (256,120.97) .. (256,116) -- cycle ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (256,116) -- (274,116) ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (265,107) -- (265,125) ;
+%Straight Lines [id:da9688600550727433] 
+\draw    (120.5,116) -- (304.5,116) ;
+
+
+%Straight Lines [id:da25196687446208066] 
+\draw    (289.47,81) -- (305.29,81) ;
+
+
+%Straight Lines [id:da11126045645394922] 
+\draw    (305.29,81) -- (304.5,116) ;
+
+
+\draw   (299,24) -- (305,32) -- (299,40)(303,24) -- (309,32) -- (303,40) ;
+%Straight Lines [id:da915991635141066] 
+\draw    (169,107.4) -- (169,96.31) ;
+
+
+%Straight Lines [id:da6097174331273676] 
+\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.49 ]   (265.2,107.69) -- (265.2,96.6) ;
+
+
+\draw   (108,116) .. controls (108,111.03) and (112.03,107) .. (117,107) .. controls (121.97,107) and (126,111.03) .. (126,116) .. controls (126,120.97) and (121.97,125) .. (117,125) .. controls (112.03,125) and (108,120.97) .. (108,116) -- cycle ; \draw   (108,116) -- (126,116) ; \draw   (117,107) -- (117,125) ;
+%Straight Lines [id:da37855332203946146] 
+\draw    (117,107.4) -- (117,96.31) ;
+
+
+
+%Shape: Rectangle [id:dp027477165997513486] 
+\draw   (191.5,67.07) -- (240.5,67.07) -- (240.5,96.07) -- (191.5,96.07) -- cycle ;
+%Shape: Rectangle [id:dp6499293697756403] 
+\draw   (142.5,67.07) -- (191.5,67.07) -- (191.5,96.07) -- (142.5,96.07) -- cycle ;
+%Shape: Rectangle [id:dp7243697314599034] 
+\draw   (93.5,67.07) -- (142.5,67.07) -- (142.5,96.07) -- (93.5,96.07) -- cycle ;
+%Shape: Rectangle [id:dp5515738110034485] 
+\draw   (44.5,67.07) -- (93.5,67.07) -- (93.5,96.07) -- (44.5,96.07) -- cycle ;
+%Shape: Rectangle [id:dp052084288551704105] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (241.5,18.07) -- (290.5,18.07) -- (290.5,47.07) -- (241.5,47.07) -- cycle ;
+%Shape: Rectangle [id:dp09544797274467332] 
+\draw   (192.5,18.07) -- (241.5,18.07) -- (241.5,47.07) -- (192.5,47.07) -- cycle ;
+%Shape: Rectangle [id:dp4110913629689583] 
+\draw   (143.5,18.07) -- (192.5,18.07) -- (192.5,47.07) -- (143.5,47.07) -- cycle ;
+%Shape: Rectangle [id:dp882051943668656] 
+\draw   (94.5,18.07) -- (143.5,18.07) -- (143.5,47.07) -- (94.5,47.07) -- cycle ;
+%Shape: Rectangle [id:dp2075681372631879] 
+\draw   (44.5,18.07) -- (94.5,18.07) -- (94.5,47.07) -- (44.5,47.07) -- cycle ;
+%Shape: Rectangle [id:dp5293044736091981] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (240.5,193.07) -- (289.5,193.07) -- (289.5,222.07) -- (240.5,222.07) -- cycle ;
+\draw   (160,242) .. controls (160,237.03) and (164.03,233) .. (169,233) .. controls (173.97,233) and (178,237.03) .. (178,242) .. controls (178,246.97) and (173.97,251) .. (169,251) .. controls (164.03,251) and (160,246.97) .. (160,242) -- cycle ; \draw   (160,242) -- (178,242) ; \draw   (169,233) -- (169,251) ;
+\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (256,242) .. controls (256,237.03) and (260.03,233) .. (265,233) .. controls (269.97,233) and (274,237.03) .. (274,242) .. controls (274,246.97) and (269.97,251) .. (265,251) .. controls (260.03,251) and (256,246.97) .. (256,242) -- cycle ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (256,242) -- (274,242) ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (265,233) -- (265,251) ;
+%Straight Lines [id:da05967823441851672] 
+\draw    (120.5,242) -- (304.5,242) ;
+
+
+%Straight Lines [id:da4899221937673848] 
+\draw    (289.47,207) -- (305.29,207) ;
+
+
+%Straight Lines [id:da4083304417178206] 
+\draw    (305.29,207) -- (304.5,242) ;
+
+
+\draw   (299,150) -- (305,158) -- (299,166)(303,150) -- (309,158) -- (303,166) ;
+%Straight Lines [id:da09519241159067837] 
+\draw    (169,233.4) -- (169,222.31) ;
+
+
+%Straight Lines [id:da4743160493910028] 
+\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.49 ]   (265.2,233.69) -- (265.2,222.6) ;
+
+
+\draw   (108,242) .. controls (108,237.03) and (112.03,233) .. (117,233) .. controls (121.97,233) and (126,237.03) .. (126,242) .. controls (126,246.97) and (121.97,251) .. (117,251) .. controls (112.03,251) and (108,246.97) .. (108,242) -- cycle ; \draw   (108,242) -- (126,242) ; \draw   (117,233) -- (117,251) ;
+%Straight Lines [id:da11101989128144285] 
+\draw    (117,233.4) -- (117,222.31) ;
+
+
+
+%Shape: Rectangle [id:dp722283227811044] 
+\draw   (191.5,193.07) -- (240.5,193.07) -- (240.5,222.07) -- (191.5,222.07) -- cycle ;
+%Shape: Rectangle [id:dp03755027616920925] 
+\draw   (142.5,193.07) -- (191.5,193.07) -- (191.5,222.07) -- (142.5,222.07) -- cycle ;
+%Shape: Rectangle [id:dp6134865952471877] 
+\draw   (93.5,193.07) -- (142.5,193.07) -- (142.5,222.07) -- (93.5,222.07) -- cycle ;
+%Shape: Rectangle [id:dp3901325089644738] 
+\draw   (44.5,193.07) -- (93.5,193.07) -- (93.5,222.07) -- (44.5,222.07) -- cycle ;
+%Shape: Rectangle [id:dp712232207416444] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (241.5,144.07) -- (290.5,144.07) -- (290.5,173.07) -- (241.5,173.07) -- cycle ;
+%Shape: Rectangle [id:dp3856239375579351] 
+\draw   (192.5,144.07) -- (241.5,144.07) -- (241.5,173.07) -- (192.5,173.07) -- cycle ;
+%Shape: Rectangle [id:dp9628927317132416] 
+\draw   (143.5,144.07) -- (192.5,144.07) -- (192.5,173.07) -- (143.5,173.07) -- cycle ;
+%Shape: Rectangle [id:dp28264872205217717] 
+\draw   (94.5,144.07) -- (143.5,144.07) -- (143.5,173.07) -- (94.5,173.07) -- cycle ;
+%Shape: Rectangle [id:dp9263893252943014] 
+\draw   (44.5,144.07) -- (94.5,144.07) -- (94.5,173.07) -- (44.5,173.07) -- cycle ;
+%Shape: Rectangle [id:dp3310761905210291] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (241.5,311.07) -- (290.5,311.07) -- (290.5,340.07) -- (241.5,340.07) -- cycle ;
+\draw   (161,360) .. controls (161,355.03) and (165.03,351) .. (170,351) .. controls (174.97,351) and (179,355.03) .. (179,360) .. controls (179,364.97) and (174.97,369) .. (170,369) .. controls (165.03,369) and (161,364.97) .. (161,360) -- cycle ; \draw   (161,360) -- (179,360) ; \draw   (170,351) -- (170,369) ;
+\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (257,360) .. controls (257,355.03) and (261.03,351) .. (266,351) .. controls (270.97,351) and (275,355.03) .. (275,360) .. controls (275,364.97) and (270.97,369) .. (266,369) .. controls (261.03,369) and (257,364.97) .. (257,360) -- cycle ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (257,360) -- (275,360) ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (266,351) -- (266,369) ;
+%Straight Lines [id:da3098057785187702] 
+\draw    (121.5,360) -- (305.5,360) ;
+
+
+%Straight Lines [id:da6937513410259843] 
+\draw    (290.47,325) -- (306.29,325) ;
+
+
+%Straight Lines [id:da2583894882903597] 
+\draw    (306.29,325) -- (305.5,360) ;
+
+
+\draw   (300,268) -- (306,276) -- (300,284)(304,268) -- (310,276) -- (304,284) ;
+%Straight Lines [id:da9694120927033585] 
+\draw    (170,351.4) -- (170,340.31) ;
+
+
+%Straight Lines [id:da18684787615202847] 
+\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.49 ]   (266.2,351.69) -- (266.2,340.6) ;
+
+
+\draw   (109,360) .. controls (109,355.03) and (113.03,351) .. (118,351) .. controls (122.97,351) and (127,355.03) .. (127,360) .. controls (127,364.97) and (122.97,369) .. (118,369) .. controls (113.03,369) and (109,364.97) .. (109,360) -- cycle ; \draw   (109,360) -- (127,360) ; \draw   (118,351) -- (118,369) ;
+%Straight Lines [id:da9326829637894487] 
+\draw    (118,351.4) -- (118,340.31) ;
+
+
+
+%Shape: Rectangle [id:dp4814676722793778] 
+\draw   (192.5,311.07) -- (241.5,311.07) -- (241.5,340.07) -- (192.5,340.07) -- cycle ;
+%Shape: Rectangle [id:dp08961927404687242] 
+\draw   (143.5,311.07) -- (192.5,311.07) -- (192.5,340.07) -- (143.5,340.07) -- cycle ;
+%Shape: Rectangle [id:dp176431289776108] 
+\draw   (94.5,311.07) -- (143.5,311.07) -- (143.5,340.07) -- (94.5,340.07) -- cycle ;
+%Shape: Rectangle [id:dp7318801712147491] 
+\draw   (45.5,311.07) -- (94.5,311.07) -- (94.5,340.07) -- (45.5,340.07) -- cycle ;
+%Shape: Rectangle [id:dp5768873672969614] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (242.5,262.07) -- (291.5,262.07) -- (291.5,291.07) -- (242.5,291.07) -- cycle ;
+%Shape: Rectangle [id:dp5023759839500554] 
+\draw   (193.5,262.07) -- (242.5,262.07) -- (242.5,291.07) -- (193.5,291.07) -- cycle ;
+%Shape: Rectangle [id:dp468902999493632] 
+\draw   (144.5,262.07) -- (193.5,262.07) -- (193.5,291.07) -- (144.5,291.07) -- cycle ;
+%Shape: Rectangle [id:dp17470119046260635] 
+\draw   (95.5,262.07) -- (144.5,262.07) -- (144.5,291.07) -- (95.5,291.07) -- cycle ;
+%Shape: Rectangle [id:dp2743901075654269] 
+\draw   (45.5,262.07) -- (95.5,262.07) -- (95.5,291.07) -- (45.5,291.07) -- cycle ;
+%Shape: Rectangle [id:dp7318407710954036] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (242.5,431.07) -- (306.5,431.07) -- (306.5,460.07) -- (242.5,460.07) -- cycle ;
+\draw   (162,480) .. controls (162,475.03) and (166.03,471) .. (171,471) .. controls (175.97,471) and (180,475.03) .. (180,480) .. controls (180,484.97) and (175.97,489) .. (171,489) .. controls (166.03,489) and (162,484.97) .. (162,480) -- cycle ; \draw   (162,480) -- (180,480) ; \draw   (171,471) -- (171,489) ;
+\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (258,480) .. controls (258,475.03) and (262.03,471) .. (267,471) .. controls (271.97,471) and (276,475.03) .. (276,480) .. controls (276,484.97) and (271.97,489) .. (267,489) .. controls (262.03,489) and (258,484.97) .. (258,480) -- cycle ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (258,480) -- (276,480) ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (267,471) -- (267,489) ;
+%Straight Lines [id:da9225129905022607] 
+\draw    (122.5,480) -- (313.36,480) ;
+
+
+%Straight Lines [id:da19266860418614606] 
+\draw    (306.5,444) -- (314.5,445) ;
+
+
+%Straight Lines [id:da9834284516340188] 
+\draw    (314.5,445) -- (313.36,480) ;
+
+
+\draw   (301,388) -- (307,396) -- (301,404)(305,388) -- (311,396) -- (305,404) ;
+%Straight Lines [id:da7589406255192748] 
+\draw    (171,471.4) -- (171,460.31) ;
+
+
+%Straight Lines [id:da022076411344639224] 
+\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.49 ]   (267.2,471.69) -- (267.2,460.6) ;
+
+
+\draw   (110,480) .. controls (110,475.03) and (114.03,471) .. (119,471) .. controls (123.97,471) and (128,475.03) .. (128,480) .. controls (128,484.97) and (123.97,489) .. (119,489) .. controls (114.03,489) and (110,484.97) .. (110,480) -- cycle ; \draw   (110,480) -- (128,480) ; \draw   (119,471) -- (119,489) ;
+%Straight Lines [id:da041964919063572914] 
+\draw    (119,471.4) -- (119,460.31) ;
+
+
+
+%Shape: Rectangle [id:dp2763552503351634] 
+\draw   (193.5,431.07) -- (242.5,431.07) -- (242.5,460.07) -- (193.5,460.07) -- cycle ;
+%Shape: Rectangle [id:dp5800172377812953] 
+\draw   (144.5,431.07) -- (193.5,431.07) -- (193.5,460.07) -- (144.5,460.07) -- cycle ;
+%Shape: Rectangle [id:dp7404981211417039] 
+\draw   (95.5,431.07) -- (144.5,431.07) -- (144.5,460.07) -- (95.5,460.07) -- cycle ;
+%Shape: Rectangle [id:dp46958222365383917] 
+\draw   (46.5,431.07) -- (95.5,431.07) -- (95.5,460.07) -- (46.5,460.07) -- cycle ;
+%Shape: Rectangle [id:dp6752477959576653] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (243.5,382.07) -- (292.5,382.07) -- (292.5,411.07) -- (243.5,411.07) -- cycle ;
+%Shape: Rectangle [id:dp5970908908832706] 
+\draw   (194.5,382.07) -- (243.5,382.07) -- (243.5,411.07) -- (194.5,411.07) -- cycle ;
+%Shape: Rectangle [id:dp4984300678210327] 
+\draw   (145.5,382.07) -- (194.5,382.07) -- (194.5,411.07) -- (145.5,411.07) -- cycle ;
+%Shape: Rectangle [id:dp7420165312896274] 
+\draw   (96.5,382.07) -- (145.5,382.07) -- (145.5,411.07) -- (96.5,411.07) -- cycle ;
+%Shape: Rectangle [id:dp08232724398802183] 
+\draw   (46.5,382.07) -- (96.5,382.07) -- (96.5,411.07) -- (46.5,411.07) -- cycle ;
+
+% Text Node
+\draw (71.93,80.33) node   {$0$};
+% Text Node
+\draw (366,99) node  [align=left] {$\displaystyle  \begin{array}{{>{\displaystyle}l}}
+Output\ bits:\ \\
+( a_{3} ,\ )
+\end{array}$};
+% Text Node
+\draw (120.27,32.33) node   {$a_{1}$};
+% Text Node
+\draw (71.27,32.33) node   {$a_{0}$};
+% Text Node
+\draw (167.27,32.33) node   {$a_{2}$};
+% Text Node
+\draw (215.27,32.33) node   {$a_{3}$};
+% Text Node
+\draw (167.27,79.33) node [scale=0.8]  {$a_{1} \oplus a_{3}$};
+% Text Node
+\draw (118.27,79.33) node [scale=0.8]  {$a_{0} \oplus a_{3}$};
+% Text Node
+\draw (214.27,79.33) node   {$a_{2}$};
+% Text Node
+\draw (265.27,80.33) node [scale=0.8]  {$\textcolor[rgb]{0,0,0}{\cancel{a_{3}} \oplus \cancel{a_{3}}}$};
+% Text Node
+\draw (71.93,206.33) node   {$0$};
+% Text Node
+\draw (366,224) node  [align=left] {$\displaystyle  \begin{array}{{>{\displaystyle}l}}
+Output\ bits:\ \\
+( a_{3} ,\ a_{2} )
+\end{array}$};
+% Text Node
+\draw (71.27,158.33) node   {$0$};
+% Text Node
+\draw (215.27,158.33) node   {$a_{2}$};
+% Text Node
+\draw (265.27,206.33) node [scale=0.8]  {$\textcolor[rgb]{0,0,0}{\cancel{a_{2}}}\textcolor[rgb]{0,0,0}{\oplus }\textcolor[rgb]{0,0,0}{\cancel{a_{2}}}$};
+% Text Node
+\draw (72.93,324.33) node   {$0$};
+% Text Node
+\draw (377,338) node  [align=left] {$\displaystyle  \begin{array}{{>{\displaystyle}l}}
+Output\ bits:\ \\
+( a_{3} ,\ a_{2} ,\ a_{1} \oplus a_{3} \ )
+\end{array}$};
+% Text Node
+\draw (168.27,324.33) node [scale=0.7]  {$ \begin{array}{l}
+\ a_{2} \oplus \\
+a_{1} \oplus a_{3}
+\end{array}$};
+% Text Node
+\draw (121.27,324.33) node [scale=0.7]  {$ \begin{array}{l}
+\cancel{\textcolor[rgb]{0,0,0}{0}} \oplus \\
+a_{1} \oplus a_{3}
+\end{array}$};
+% Text Node
+\draw (73.93,444.33) node   {$0$};
+% Text Node
+\draw (422,447) node  [align=left] {$\displaystyle  \begin{array}{{>{\displaystyle}l}}
+Output\ bits:\ \\
+( a_{3} ,\ a_{2} ,\ a_{1} \oplus a_{3} ,\ a_{0} \oplus a_{3} \oplus a_{2} )
+\end{array}$};
+% Text Node
+\draw (170.27,443.33) node [scale=0.5]  {$ \begin{array}{l}
+a_{1} \oplus \cancel{a_{3}} \oplus \\
+a_{0} \oplus \cancel{a_{3}} \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (146,53) node   {$\lightning $};
+% Text Node
+\draw (145,178) node   {$\lightning $};
+% Text Node
+\draw (146,295) node   {$\lightning $};
+% Text Node
+\draw (147,417) node   {$\lightning $};
+% Text Node
+\draw (119.27,158.33) node [scale=0.8]  {$a_{0} \oplus a_{3}$};
+% Text Node
+\draw (168.27,158.33) node [scale=0.8]  {$a_{1} \oplus a_{3}$};
+% Text Node
+\draw (118.93,208.33) node   {$\cancel{\textcolor[rgb]{0,0,0}{0}} \oplus a_{2}$};
+% Text Node
+\draw (167.27,206.33) node [scale=0.7,rotate=-0.55]  {$ \begin{array}{l}
+a_{0} \oplus a_{3}\\
+\ \ \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (217.27,205.33) node [scale=0.8]  {$a_{1} \oplus a_{3}$};
+% Text Node
+\draw (73.93,275.33) node   {$0$};
+% Text Node
+\draw (120.93,277.33) node   {$a_{2}$};
+% Text Node
+\draw (169.27,275.33) node [scale=0.7,rotate=-0.55]  {$ \begin{array}{l}
+a_{0} \oplus a_{3}\\
+\ \ \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (218.27,276.33) node [scale=0.8]  {$a_{1} \oplus a_{3}$};
+% Text Node
+\draw (264.27,325.33) node [scale=0.5,color={rgb, 255:red, 0; green, 0; blue, 0 }  ,opacity=0.51 ]  {$\cancel{ \begin{array}{l}
+a_{1} \oplus a_{3} \oplus \\
+a_{1} \oplus a_{3}
+\end{array}}$};
+% Text Node
+\draw (216.27,325.33) node [scale=0.7,rotate=-0.55]  {$ \begin{array}{l}
+a_{0} \oplus a_{3}\\
+\ \ \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (276.27,445.33) node [scale=0.5,rotate=-0.55]  {$\cancel{ \begin{array}{l}
+\textcolor[rgb]{0,0,0}{a_{0} \oplus a_{3} \oplus a_{2} \oplus }\\
+\textcolor[rgb]{0,0,0}{a_{0} \oplus a_{3} \oplus a_{2}}
+\end{array}}$};
+% Text Node
+\draw (170.27,394.33) node [scale=0.7]  {$ \begin{array}{l}
+\ a_{2} \oplus \\
+a_{1} \oplus a_{3}
+\end{array}$};
+% Text Node
+\draw (218.27,395.33) node [scale=0.7,rotate=-0.55]  {$ \begin{array}{l}
+a_{0} \oplus a_{3}\\
+\ \ \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (73.93,394.33) node   {$0$};
+% Text Node
+\draw (121.27,395.33) node [scale=0.8]  {$a_{1} \oplus a_{3}$};
+% Text Node
+\draw (217.27,444.33) node [scale=0.7,rotate=-0.55]  {$ \begin{array}{l}
+a_{0} \oplus a_{3}\\
+\ \ \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (123.27,445.33) node [scale=0.5]  {$ \begin{array}{l}
+\cancel{\textcolor[rgb]{0,0,0}{0}} \oplus a_{0} \oplus \\
+a_{3} \oplus a_{2}
+\end{array}$};
+% Text Node
+\draw (30.93,384.33) node [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,opacity=0.52 ]  {$ \begin{array}{l}
+\ 0\\
+\rightdowncurvedarrow 
+\end{array}$};
+% Text Node
+\draw (29.93,266.33) node [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,opacity=0.52 ]  {$ \begin{array}{l}
+\ 0\\
+\rightdowncurvedarrow 
+\end{array}$};
+% Text Node
+\draw (29.93,144.33) node [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,opacity=0.52 ]  {$ \begin{array}{l}
+\ 0\\
+\rightdowncurvedarrow 
+\end{array}$};
+% Text Node
+\draw (27.93,19.33) node [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,opacity=0.52 ]  {$ \begin{array}{l}
+\ 0\\
+\rightdowncurvedarrow 
+\end{array}$};
+
+
+\end{tikzpicture}
+\begin{center}
+\end{center}
+
