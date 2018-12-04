@@ -338,7 +338,7 @@ This component doesn’t really add any significant strength to the cipher syste
 
 
   
-## Substitution boxes and linear cryptanalysis
+## Substitution boxes
 As we’ve seen, LFSRs by themselves do not offer a great deal of security for block ciphers. The linear relationship between their inputs and outputs make it easy to reverse their action and solve for the indeterminate or key bits.
 This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to m bit values, with the purpose of reducing linearity, to some extent obstructing our use of linear equation systems.
   
@@ -401,8 +401,7 @@ $$
 & 0 & 0 & 0 & 0 & 0 & 0 \\
 & 0 & 0 & 1 & 1 & 1 & 1 \\
 & 0 & 1 & 1 & 0 & 1 & 1 \\
-& 0 & 1 & 1 & 1 & 1 & 0 \\ 
-& 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+& 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
 i & 1 & 2 & 3 & 4 & 5 & 6
 \end{array}
 $$
