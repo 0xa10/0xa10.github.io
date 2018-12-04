@@ -1,0 +1,146 @@
+\begin{center}
+\end{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,337); %set diagram left start at 0, and has height of 337
+
+%Shape: Rectangle [id:dp9335807238494078] 
+\draw   (13,12) -- (83,12) -- (83,52) -- (13,52) -- cycle ;
+%Shape: Rectangle [id:dp050814141877046026] 
+\draw   (105,12) -- (175,12) -- (175,52) -- (105,52) -- cycle ;
+%Shape: Rectangle [id:dp4915989245658434] 
+\draw   (194,12) -- (264,12) -- (264,52) -- (194,52) -- cycle ;
+%Shape: Rectangle [id:dp40573534166091085] 
+\draw   (284,11.5) -- (354,11.5) -- (354,51.5) -- (284,51.5) -- cycle ;
+%Shape: Rectangle [id:dp7959024008444997] 
+\draw   (375,11.5) -- (445,11.5) -- (445,51.5) -- (375,51.5) -- cycle ;
+\draw   (211,119.17) .. controls (211,110.88) and (217.72,104.17) .. (226,104.17) .. controls (234.28,104.17) and (241,110.88) .. (241,119.17) .. controls (241,127.45) and (234.28,134.17) .. (226,134.17) .. controls (217.72,134.17) and (211,127.45) .. (211,119.17) -- cycle ; \draw   (211,119.17) -- (241,119.17) ; \draw   (226,104.17) -- (226,134.17) ;
+%Straight Lines [id:da4419747532334186] 
+\draw    (47.17,52) -- (225,88) ;
+
+
+%Straight Lines [id:da4741203096630544] 
+\draw    (139.83,52) -- (225,88) ;
+
+
+%Straight Lines [id:da6519700787458571] 
+\draw    (225,88) -- (318.83,52.33) ;
+
+
+%Straight Lines [id:da6381543793363811] 
+\draw    (408.83,51.67) -- (225,88) ;
+
+
+%Shape: Rectangle [id:dp771685038899016] 
+\draw   (199.6,142.8) -- (225.6,142.8) -- (225.6,171.8) -- (199.6,171.8) -- cycle ;
+%Shape: Rectangle [id:dp14855341490697405] 
+\draw   (226.27,142.8) -- (252.27,142.8) -- (252.27,171.8) -- (226.27,171.8) -- cycle ;
+%Shape: Rectangle [id:dp510574270451555] 
+\draw   (251.6,142.8) -- (277.6,142.8) -- (277.6,171.8) -- (251.6,171.8) -- cycle ;
+%Shape: Rectangle [id:dp5030661750968055] 
+\draw   (278.6,142.8) -- (304.6,142.8) -- (304.6,171.8) -- (278.6,171.8) -- cycle ;
+%Shape: Rectangle [id:dp3664523918654843] 
+\draw   (305.27,142.8) -- (331.27,142.8) -- (331.27,171.8) -- (305.27,171.8) -- cycle ;
+%Straight Lines [id:da2807783212378052] 
+\draw    (278.6,119) -- (278.6,140.8) ;
+\draw [shift={(278.6,142.8)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Flowchart: Prodefined Process [id:dp20006598529893882] 
+\draw   (222,208) -- (344,208) -- (344,263) -- (222,263) -- cycle ; \draw   (237.25,208) -- (237.25,263) ; \draw   (328.75,208) -- (328.75,263) ;
+%Straight Lines [id:da20852338003582127] 
+\draw    (198.89,233.8) -- (219.6,233.8) ;
+\draw [shift={(221.6,233.8)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Shape: Rectangle [id:dp5271522939415583] 
+\draw   (331.27,142.8) -- (357.27,142.8) -- (357.27,171.8) -- (331.27,171.8) -- cycle ;
+%Shape: Rectangle [id:dp4960299334070275] 
+\draw   (228.6,295.8) -- (254.6,295.8) -- (254.6,324.8) -- (228.6,324.8) -- cycle ;
+%Shape: Rectangle [id:dp11596307756358981] 
+\draw   (255.27,295.8) -- (281.27,295.8) -- (281.27,324.8) -- (255.27,324.8) -- cycle ;
+%Shape: Rectangle [id:dp19646259265641675] 
+\draw   (280.6,295.8) -- (306.6,295.8) -- (306.6,324.8) -- (280.6,324.8) -- cycle ;
+%Shape: Rectangle [id:dp23409872027321033] 
+\draw   (307.6,295.8) -- (333.6,295.8) -- (333.6,324.8) -- (307.6,324.8) -- cycle ;
+%Straight Lines [id:da11279920943588273] 
+\draw    (281.27,274.8) -- (281.27,293.8) ;
+\draw [shift={(281.27,295.8)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Straight Lines [id:da5205913369157082] 
+\draw    (281.27,274.8) -- (354.38,274.8) ;
+
+
+%Straight Lines [id:da47273462071623884] 
+\draw    (354.38,239.99) -- (354.38,274.8) ;
+
+
+%Straight Lines [id:da39285152947907553] 
+\draw    (343.8,240) -- (354.38,239.99) ;
+
+
+%Straight Lines [id:da342434668836219] 
+\draw    (198.89,192.96) -- (198.89,233.8) ;
+
+
+%Straight Lines [id:da9947694446333661] 
+\draw    (198.89,192.96) -- (278.6,193.32) ;
+
+
+%Straight Lines [id:da10560698005002322] 
+\draw    (278.6,171.8) -- (278.6,193.32) ;
+
+
+%Straight Lines [id:da3197060410443675] 
+\draw    (225,51.96) -- (225.96,100) ;
+\draw [shift={(226,102)}, rotate = 268.86] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Straight Lines [id:da9196730117011347] 
+\draw    (241.11,119) -- (278.6,119) ;
+
+
+
+% Text Node
+\draw (47,33) node [scale=1.2] [align=left] {$\displaystyle LFSR_{1}$};
+% Text Node
+\draw (139,33) node [scale=1.2] [align=left] {$\displaystyle LFSR_{2}$};
+% Text Node
+\draw (228,33) node [scale=1.2] [align=left] {$\displaystyle LFSR_{3}$};
+% Text Node
+\draw (318,32.5) node [scale=1.2] [align=left] {$\displaystyle LFSR_{4}$};
+% Text Node
+\draw (410,32.5) node [scale=1.2] [align=left] {$\displaystyle LFSR_{5}$};
+% Text Node
+\draw (309,104) node  [align=left] {$\displaystyle \times 6\ rounds$};
+% Text Node
+\draw (213.27,156.13) node   {$x_{1}$};
+% Text Node
+\draw (239.93,156.13) node   {$x_{2}$};
+% Text Node
+\draw (265.27,156.13) node   {$x_{3}$};
+% Text Node
+\draw (292.27,156.13) node   {$x_{4}$};
+% Text Node
+\draw (319.93,156.13) node   {$x_{5}$};
+% Text Node
+\draw (344.27,156.13) node   {$x_{6}$};
+% Text Node
+\draw (280,232) node  [align=left] {$\displaystyle  \begin{array}{{>{\displaystyle}l}}
+{\displaystyle \ \ \ SBox\ }\\
+{\displaystyle ( 6\ \rightrightarrows \ 4)}
+\end{array}$};
+% Text Node
+\draw (242.27,309.13) node   {$ks_{1}$};
+% Text Node
+\draw (268.93,309.13) node   {$ks_{2}$};
+% Text Node
+\draw (294.27,309.13) node   {$ks_{3}$};
+% Text Node
+\draw (321.27,309.13) node   {$ks_{4}$};
+
+
+\end{tikzpicture}
+\begin{center}
+\end{center}
+

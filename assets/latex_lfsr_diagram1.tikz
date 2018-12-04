@@ -1,0 +1,112 @@
+\begin{center}
+\end{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,130); %set diagram left start at 0, and has height of 130
+
+%Shape: Rectangle [id:dp1512955277756871] 
+\draw   (44.6,55) -- (70.6,55) -- (70.6,84) -- (44.6,84) -- cycle ;
+%Shape: Rectangle [id:dp19845885761218507] 
+\draw   (71.27,55) -- (97.27,55) -- (97.27,84) -- (71.27,84) -- cycle ;
+%Shape: Rectangle [id:dp37850885454285876] 
+\draw   (96.6,55) -- (122.6,55) -- (122.6,84) -- (96.6,84) -- cycle ;
+%Shape: Rectangle [id:dp8008370523660011] 
+\draw   (123.6,55) -- (149.6,55) -- (149.6,84) -- (123.6,84) -- cycle ;
+%Shape: Rectangle [id:dp661217859197794] 
+\draw   (149.6,55) -- (175.6,55) -- (175.6,84) -- (149.6,84) -- cycle ;
+%Shape: Rectangle [id:dp4155935202889305] 
+\draw   (176.27,55) -- (202.27,55) -- (202.27,84) -- (176.27,84) -- cycle ;
+%Shape: Rectangle [id:dp8504150904890253] 
+\draw   (201.6,55) -- (227.6,55) -- (227.6,84) -- (201.6,84) -- cycle ;
+%Shape: Rectangle [id:dp98889800324042] 
+\draw   (228.6,55) -- (254.6,55) -- (254.6,84) -- (228.6,84) -- cycle ;
+%Shape: Rectangle [id:dp09000824986068445] 
+\draw   (255.31,55.07) -- (281.31,55.07) -- (281.31,84.07) -- (255.31,84.07) -- cycle ;
+%Shape: Rectangle [id:dp07553143722279687] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (281.98,55.07) -- (307.98,55.07) -- (307.98,84.07) -- (281.98,84.07) -- cycle ;
+%Shape: Rectangle [id:dp7230962702021897] 
+\draw   (18.6,55) -- (44.6,55) -- (44.6,84) -- (18.6,84) -- cycle ;
+
+%Straight Lines [id:da7242511673760084] 
+\draw    (296,33.93) -- (296,51) ;
+\draw [shift={(296,53)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+\draw   (22,104) .. controls (22,99.03) and (26.03,95) .. (31,95) .. controls (35.97,95) and (40,99.03) .. (40,104) .. controls (40,108.97) and (35.97,113) .. (31,113) .. controls (26.03,113) and (22,108.97) .. (22,104) -- cycle ; \draw   (22,104) -- (40,104) ; \draw   (31,95) -- (31,113) ;
+\draw   (49,104) .. controls (49,99.03) and (53.03,95) .. (58,95) .. controls (62.97,95) and (67,99.03) .. (67,104) .. controls (67,108.97) and (62.97,113) .. (58,113) .. controls (53.03,113) and (49,108.97) .. (49,104) -- cycle ; \draw   (49,104) -- (67,104) ; \draw   (58,95) -- (58,113) ;
+\draw   (74,104) .. controls (74,99.03) and (78.03,95) .. (83,95) .. controls (87.97,95) and (92,99.03) .. (92,104) .. controls (92,108.97) and (87.97,113) .. (83,113) .. controls (78.03,113) and (74,108.97) .. (74,104) -- cycle ; \draw   (74,104) -- (92,104) ; \draw   (83,95) -- (83,113) ;
+\draw   (101,104) .. controls (101,99.03) and (105.03,95) .. (110,95) .. controls (114.97,95) and (119,99.03) .. (119,104) .. controls (119,108.97) and (114.97,113) .. (110,113) .. controls (105.03,113) and (101,108.97) .. (101,104) -- cycle ; \draw   (101,104) -- (119,104) ; \draw   (110,95) -- (110,113) ;
+\draw   (259,104) .. controls (259,99.03) and (263.03,95) .. (268,95) .. controls (272.97,95) and (277,99.03) .. (277,104) .. controls (277,108.97) and (272.97,113) .. (268,113) .. controls (263.03,113) and (259,108.97) .. (259,104) -- cycle ; \draw   (259,104) -- (277,104) ; \draw   (268,95) -- (268,113) ;
+\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (286,104) .. controls (286,99.03) and (290.03,95) .. (295,95) .. controls (299.97,95) and (304,99.03) .. (304,104) .. controls (304,108.97) and (299.97,113) .. (295,113) .. controls (290.03,113) and (286,108.97) .. (286,104) -- cycle ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (286,104) -- (304,104) ; \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.45 ] (295,95) -- (295,113) ;
+%Straight Lines [id:da9688600550727433] 
+\draw    (30,104) -- (324.5,104) ;
+
+
+%Straight Lines [id:da25196687446208066] 
+\draw    (307.47,69) -- (324,69) ;
+
+
+%Straight Lines [id:da11126045645394922] 
+\draw    (324,69) -- (324.5,104) ;
+
+
+\draw   (149,27) -- (155,35) -- (149,43)(153,27) -- (159,35) -- (153,43) ;
+%Straight Lines [id:da5116240370212317] 
+\draw    (31,94.8) -- (31,83.71) ;
+
+
+%Straight Lines [id:da020543724560821763] 
+\draw    (58,95.6) -- (58,84.51) ;
+
+
+%Straight Lines [id:da6302880610818211] 
+\draw    (83,95.6) -- (83,84.51) ;
+
+
+%Straight Lines [id:da19653939834944634] 
+\draw    (110.2,95.2) -- (110.2,84.11) ;
+
+
+%Straight Lines [id:da915991635141066] 
+\draw    (268,95.4) -- (268,84.31) ;
+
+
+%Straight Lines [id:da6097174331273676] 
+\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0.49 ]   (295.2,95.69) -- (295.2,84.6) ;
+
+
+
+% Text Node
+\draw (58.27,68.33) node   {$a_{1}$};
+% Text Node
+\draw (84.93,68.33) node   {$a_{2}$};
+% Text Node
+\draw (110.27,68.33) node   {$a_{3}$};
+% Text Node
+\draw (137.27,68.33) node   {$a_{4}$};
+% Text Node
+\draw (163.27,68.33) node   {$a_{5}$};
+% Text Node
+\draw (189.93,68.33) node   {$a_{6}$};
+% Text Node
+\draw (215.27,68.33) node   {$a_{7}$};
+% Text Node
+\draw (242.27,68.33) node   {$a_{8}$};
+% Text Node
+\draw (268.98,68.4) node   {$a_{9}$};
+% Text Node
+\draw (295.65,68.4) node   {$a_{a}$};
+% Text Node
+\draw (32.27,68.33) node   {$a_{0}$};
+% Text Node
+\draw (294,25) node  [align=left] {$\displaystyle Output\ bit$};
+% Text Node
+\draw (125,33) node   {$Shift$};
+
+
+\end{tikzpicture}
+\begin{center}
+\end{center}
+
