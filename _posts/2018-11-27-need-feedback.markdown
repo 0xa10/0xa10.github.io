@@ -162,7 +162,7 @@ We can then construct a [system of equations][les-wiki] (same as the ones you we
 
 To illustrate the intuition behind this, let’s go over a simple example, of a 4-bit toy-LFSR $$A$$, with the following coefficients: `[0x1, 0x2, 0x4]`. We want to illustrate that each output of the LFSR is actually a linear combination of some of its initial state bits $$[a_0, a_1, a_2, a_3]$$:
 
-{% include captioned_image.html url="/images/lfsr_step_diagram.svg" description="The LFSRs first 4 output bits are $$[a_3, a_2, a_1 \oplus a_3, a_0 \oplus a_3 \oplus a_2]$$" %}
+{% include captioned_image.html url="/images/lfsr_step_diagram.svg" description="The LFSRs first 4 output bits are $$[a_3, a_2, a_1 \oplus a_3, a_0 \oplus a_3 \oplus a_2]$$" style="width: 75vh;" %}
 
 Say we are given 4 consecutive outputs from the register - $$ [1, 0, 1, 1] $$, we can assemble a linear equation system, subbing the XOR operation with addition modulo 2. We can then assign and solve for all indeterminates:
 
@@ -508,7 +508,7 @@ We’ve chained together several components, and managed to establish linear rel
 Let’s recap our process:
 We have equations that hold over the Sbox, their parameters are the 6 Sbox input bits - $$x_1, x_2, x_3, x_4, x_5, x_6$$.
 Recall that the 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.
-Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ LFSR, then the *MultiLFSR* $$\text{ML}$$'s output in the $$j^{th}$$ round is:
+Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ LFSR, then the *MultiLFSR* $$ML$$'s output in the $$j^{th}$$ round is:
 
 <div style="overflow-x: scroll">
 $$
