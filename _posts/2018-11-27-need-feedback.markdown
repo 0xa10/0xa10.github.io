@@ -16,7 +16,7 @@ In this write-up I’ll present my solution to the need-feedback challenge from 
 While the challenge itself remained unsolved during the CTF, a [solution][luc-lynx-writeup] was written up by @luc-lynx slightly after the CTF ended.
 In his solution, @luc-lynx utilized a meet-in-the-middle technique to reduce the keyspace to approx. $$2^{43}$$.  
 According to the write-up, revealing the key took about 3 days. 
-In my solution, I wanted to reduce the time required to recover the key to an amount of time feasible in the timespan of the CTF.
+In my solution, I wanted to reduce the time required to recover the key to an amount of time feasible within the timespan of a CTF.
 
 To accomplish this, I had to learn and familiarize myself with a few cryptanalysis techniques, with the purpose of unraveling some of the underlying cipher components - namely the *Sbox* and the *LFSR* pseudo-random number generator.  
 My goal in this write-up was to present the mathematical intuition for the solution in an accessible manner to anyone who has an interest in crypto, but no formal mathematical background.
@@ -43,15 +43,12 @@ Once extracted, you are presented with some Python code and a pcap file.
 {% include image.html url="/images/pcap_screenshot.png" description="Included capture" style="width: 50vh;" %}
 </center>
 
-The code seems to implement a secure channel or tunnel. Looking at the capture, the secret itself appears to be is a 20 part file downloaded from an HTTP server.  
+The code seems to implement a secure channel or tunnel of some sort. Looking at the capture, the secret itself appears to be is a 20 part file downloaded from an HTTP server.  
 The upstream channel is passed plaintext, so we can see the `GET` requests, but the downstream HTTP responses are encrypted using the secure tunnel.  
 Our mission is to somehow decrypt the ciphertexts, and extract the 20 file parts.
   
-The gist of it 
-
 We'll start by overviewing the underlying cipher system and its components.  
 # KappaCrypto
-{% include captioned_image.html url="/images/cipher_design.svg" style="width: 80vh" description="Overview of the KappaCrypto cipher system" %}
 The cipher system presented in the challenge is called `KappaCrypto`.
 It comprises several components - a `KappaTunnelHandler` class implements an interface for a basic Python `ThreadedTCPServer`.
 Inside the tunnel, a `KappaChannel` object is instantiated, which processes messages in the upstream and downstream channels, wrapping them in `KappaMsg` objects, and then serializing them into `KappaPacket` objects which are finally sent through the tunnel.
@@ -65,7 +62,9 @@ The encryption takes place prior to wrapping in `KappaMsg` objects, using the `K
 
 **Sbox** stands for [Substition-box][sbox-wiki] is simply a construct which takes in values in a given range and outputs values in a given range. More on the purpose of the Sbox in the next segments.
 
-`KappaCrypto` takes these two basic cryptographic constructs and chains them together within the *MultiLFSR* class - which is responsible for taking in a seed and outputting a keystream with which the plaintext is XORed.     
+`KappaCrypto` takes these two basic cryptographic constructs and chains them together within the *MultiLFSR* class - which is responsible for taking in a seed and outputting a keystream with which the plaintext is XORed.
+{% include captioned_image.html url="/images/cipher_design.svg" style="width: 80vh" description="Overview of the KappaCrypto cipher system" %}
+  
 {::options parse_block_html="true" /}
 <figure>
 {% highlight python %}
@@ -149,7 +148,7 @@ Let’s take a look at the code:
 The LFSR is initialized with a **coefficient** vector corresponding to an $$n$$ bit register. The **state** parameter is effectively the seed.
 The LFSR is shifted each round, the MSB becomes the output bit, and a zero bit is inserted as the LSB. The coefficient vector marks "taps" on the LFSR, which are XORed with the output bit in each round.
 
-{% include captioned_image.html url="/images/lfsr_schema.svg" description="A 10 bit LFSR, with taps at 0,1,2,3,6,9,0xa" style="width: 80vh"%}
+{% include captioned_image.html url="/images/lfsr_schema.svg" description="A 10 bit LFSR, with taps at 0,1,2,3,9,0xa" style="width: 80vh"%}
 
 Note that the MSB is XORed with itself at the output bit position, which causes the register to be naturally truncated at its bit length each round, as any $$\text{'1'}$$ bit that reaches the output position will  be nulled. This is just an implementation choice since Python integers are of arbitrary length.  
 
@@ -161,7 +160,7 @@ This means that we can construct equations to represent the output bits at any r
 Generally speaking - to recover the initial state for an $$n$$-bit LFSR, we need $$n$$ outputs generated from that seed.
 We can then construct a [system of equations][les-wiki] (same as the ones you were taught in school), where each of the LFSRs bits is a variable, and the solution is the initial state.
 
-To illustrate the intuition behind this, let’s go over a simple example, of a 4-bit toy-LFSR A, with the following coefficients: `[0x1, 0x2, 0x4]`. We want to illustrate that each output of the LFSR is actually a linear combination of some of its initial state bits $$[a_0, a_1, a_2, a_3]$$:
+To illustrate the intuition behind this, let’s go over a simple example, of a 4-bit toy-LFSR $$A$$, with the following coefficients: `[0x1, 0x2, 0x4]`. We want to illustrate that each output of the LFSR is actually a linear combination of some of its initial state bits $$[a_0, a_1, a_2, a_3]$$:
 
 {% include captioned_image.html url="/images/lfsr_step_diagram.svg" description="The LFSRs first 4 output bits are $$[a_3, a_2, a_1 \oplus a_3, a_0 \oplus a_3 \oplus a_2]$$" %}
 
@@ -286,7 +285,7 @@ The next component in *KappaCrypto* is the *MultiLFSR* class - this class bands 
 It’s also responsible for passing them through the *Sbox*, but more on that later.    
 Given that we already know how to represent an LFSRs output bits as linear combinations of its state bits, and that XORing those output bits is simply addition modulo 2, we can represent the *MultiLFSRs* output bits as linear combinations of all its LFSRs state bits. 
   
-To illustrate this, let’s return to our toy-LFSR A from before, this time with an additional 5 bit toy-LFSR B in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$. When seeded to 12, the first 5 outputs are $$[0, 1, 0, 1, 1]$$.
+To illustrate this, let’s return to our toy-LFSR $$A$$ from before, this time with an additional 5 bit toy-LFSR $$B$$ in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$. When seeded to 12, the first 5 outputs are $$[0, 1, 0, 1, 1]$$.
 {::options parse_block_html="true" /}
 <div style="overflow-x: scroll">
 <center>
@@ -327,7 +326,7 @@ $$
 {::options parse_block_html="false" /}
 
 ### Matrix representation
-We can add the equation systems together to obtain a linear equation system with twice the variables. To solve this newly assembled equation system, which now has 9 variables, we need 9 output bits.
+We can add the equation systems to each other to obtain a new linear equation system, with both sets of variables. To solve this newly assembled equation system, which now has 9 variables, we need 9 output bits.
 Adding the equation systems together can represented by stacking their matrices.
 
 {% include captioned_image.html url="/images/sagemath_multilfsr_solution.png" description="sa, sb are 9 outputs from the two toy-LFSRs above. By stacking the two LFSR equation sets horizontally (augmenting) and setting the results vector to a be the combination of both output vectors, we can solve for both initial state vectors - 8 and 12." %}
@@ -336,8 +335,6 @@ More concretely, for a *MultiLFSR* containing LFSRs with a total of $$N$$ bits b
 This component doesn’t really add any significant strength to the cipher system, and may even be worse than a normal LFSR with the equivalent bit length.
 
 
-
-  
 ## Substitution boxes
 As we’ve seen, LFSRs by themselves do not offer a great deal of security for block ciphers. The linear relationship between their inputs and outputs make it easy to reverse their action and solve for the indeterminate or key bits.
 This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to m bit values, with the purpose of reducing linearity, to some extent obstructing our use of linear equation systems.
@@ -513,15 +510,18 @@ We have equations that hold over the Sbox, their parameters are the 6 Sbox input
 Recall that the 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.
 Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ LFSR, then the *MultiLFSR* $$\text{ML}$$'s output in the $$j^{th}$$ round is:
 
+<div style="overflow-x: scroll">
 $$
 \begin{array}{c}
 \text{ML}_j = \displaystyle \sum_{i=1}^{5} L_{j}^{i} = L_{j}^{1} + L_{j}^{2} + L_{j}^{3} + L_{j}^{4} + L_{j}^{5}
 \end{array}
 $$
+</div>
  
 For any $$j \equiv 0 \mod 6$$, the *MultiLFSR* output values $$\text{ML}_j, \cdots, \text{ML}_{j+6}$$ are in fact the Sbox inputs $$x_1, \cdots, x_6$$, with respect to a certain Sbox output value.  
 As such, if we know a certain output value, for instance `5`, we can apply the Sbox equations collected earlier for output value `5`, and substitute the corresponding input bits with LFSR outputs.  
   
+<div style="overflow-x: scroll">
 $$
 \begin{aligned}
 \text{if Sbox output #1 is 5 then:} &\\
@@ -533,6 +533,7 @@ $$
     &\quad + L_{5}^{4} + L_{5}^{5} + L_{6}^{1} + L_{6}^{2} + L_{6}^{3} + L_{6}^{4} + L_{6}^{5} \equiv 1 \pmod{2} \\
 \end{aligned}
 $$
+</div>
   
 Any $$L_{j}^{i}$$ can be expressed as a linear combination of the $$i^{th}$$ LFSR initial state bits - it's the $$j^{th}$$ equation obtained from our code from the first section, 
 and we can repeat this process for the additional equations that hold over the current output value.  
