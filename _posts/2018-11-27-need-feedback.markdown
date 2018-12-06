@@ -13,8 +13,8 @@ tags: crypto ctf challenge sbox linear cryptanalysis lfsr algebra
 
 In this write-up I’ll present my solution to the need-feedback challenge from the 2016 Google CTF “Homework” exercises.  
   
-While the challenge itself remained unsolved during the CTF, a [solution][luc-lynx-writeup] was written up by @luc-lynx slightly after the CTF ended.
-In his solution, @luc-lynx utilized a meet-in-the-middle technique to reduce the keyspace to approx. $$2^{43}$$.  
+While the challenge itself remained unsolved during the CTF, a [solution][luc-lynx-writeup] was written up by [@luc-lynx][github-luc-lynx] slightly after the CTF ended.
+In his solution, [@luc-lynx][github-luc-lynx] utilized a meet-in-the-middle technique to reduce the keyspace to approx. $$2^{43}$$.  
 According to the write-up, revealing the key took about 3 days. 
 In my solution, I wanted to reduce the time required to recover the key to an amount of time feasible within the timespan of a CTF.
 
@@ -33,6 +33,8 @@ The general idea behind solving this challenge is constructing *linear equations
 "guess" or derive based on the underlying protocol (HTTP).
   
 A big thank you goes out to @Bar Katz for introducing me to the mathematical theory and intuition required to tackle this challenge way back in 2016.
+  
+
 # need-feedback
 
 You can find the archive containing the original challenge files [here][original-challenge-link]. 
@@ -505,9 +507,8 @@ Note that some of these equations may be linearly dependant and as such redundan
 # Putting it all together
 ## Chaining LFSR, MultiLFSR and Sbox equations
 We’ve chained together several components, and managed to establish linear relationships between the initial state values (i.e. the key/secret) and the keystream. 
-Let’s recap our process:
-We have equations that hold over the Sbox, their parameters are the 6 Sbox input bits - $$x_1, x_2, x_3, x_4, x_5, x_6$$.
-Recall that the 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.
+We have boolean functions that hold over the Sbox with total bias, comprising the 6 Sbox input bits - $$(x_1, x_2, x_3, x_4, x_5, x_6)$$.
+Recall that those 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.
 Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ LFSR, then the *MultiLFSR* $$ML$$'s output in the $$j^{th}$$ round is:
 
 <div style="overflow-x: scroll">
@@ -518,7 +519,7 @@ ML_j = \displaystyle \sum_{i=1}^{5} L_{j}^{i} = L_{j}^{1} + L_{j}^{2} + L_{j}^{3
 $$
 </div>
  
-For any $$j \equiv 0 \mod 6$$, the *MultiLFSR* output values $$ML_j, \cdots, ML_{j+6}$$ are in fact the Sbox inputs $$x_1, \cdots, x_6$$, with respect to a certain Sbox output value.  
+For any $$j \equiv 0 \mod 6$$, the *MultiLFSR* output values $$(ML_j, \cdots, ML_{j+6})$$ are in fact the Sbox inputs $$(x_1, \cdots, x_6)$$, with respect to a certain Sbox output value.  
 As such, if we know a certain output value, for instance `5`, we can apply the Sbox equations collected earlier for output value `5`, and substitute the corresponding input bits with LFSR outputs.  
   
 <div style="overflow-x: scroll">
@@ -564,40 +565,27 @@ Once we have the original seed values, we simply instantiate a *KappaCrypto* obj
 {% include captioned_image.html url="/images/solution_example.png" description="The solution, showing the recovered LFSR states, recovered in a matter of seconds." style="width: 85vh"%}
 {% include captioned_image.html url="/images/the_flag.png" description="The flag (cropped) is embedded in a 3548 x 3547 15MB PNG file" style="width: 85vh" %}
 
-I’ll refer you to the [solution code][solution-code-repo] for further details. Note that while most of the code samples in this write up are in Sagemath (for brevity and clarity’s sake), I opted to implement the full solution in Python3 + numpy (for portability’s sake).
-I also opted to implement some of the matrix operations (such as Gaussian Elimination) myself since numpy was being difficult with non-square matrices.
-[todo - gaussian elimination animation]
+I’ll refer you to the [solution code][solution-code-repo] for further details. 
+While most of the code samples in this write up are in Sagemath (for clarity’s sake), I initially wrote my solution in Python3 + numpy.  
+I also opted to implement some of the matrix operations (such as Gaussian Elimination) myself since numpy was being difficult with non-square matrices and with Gaussian Elimination in $$GF(2)$$
 
 ## Overview of the attack process
-1. For all LFSRs in the MultiLFSR system, generate equations representing each output bit from the MultiLFSR, prior to passing through the Sbox.
-2. For all Sbox outputs, search for boolean functions representing linear equations that hold over said Sbox input to output mapping.
-3. Using HTTP headers as presumed plaintext, guess some of the keystream values.
-4. For each nibble in the keystream, collect all the boolean functions found for that nibble value.
-a. For each nibble value and its respective boolean functions/mask, take 6 MultiLFSR equations (representing 6 MultiLFSR outputs) and XOR together the equations for which the relevant bit in the mask was 1
-b. Set the equations result to be the result of said boolean function. This will result in a N variable equation, with an additional result bit - set it aside.
-5. When N linearly-independent equations are collected, stack them to create an Nx(N+1) matrix representing a linear equation system.
-6. Solve using Gaussian Elimination. The output should be an NxN identity matrix along with an N bit solution column representing the initial state of all bits in the MultiLFSR.
-7. Using those seed values, decrypt the communications. 
+1. Generate equations representing the outputs of all 5 LFSRs, and join them to represent the MultiLFSR bits, before the Sbox
+2. For all Sbox outputs, search for boolean functions representing linear equations that hold over said Sbox input-to-output mapping.
+3. Using HTTP headers as known plaintext, XOR the ciphertext to obtain some of the keystream values.
+4. For each nibble (4 bit tuple) in the keystream, collect all the boolean functions found for that Sbox output value.  
+    1. For each nibble value and its respective boolean functions/mask, take 6 MultiLFSR equations (representing 6 MultiLFSR outputs) and XOR together the equations for which the relevant bit in the mask was $$'1'$$.  
+    2. Set the equation's result to be the result of said boolean function. This will result in an $$N$$ variable equation, with an additional result bit.   
+    3. Add the equation to the linear equation matrix.  
+5. When $$N$$ linearly-independent equations are collected, stack them to create an $$N\times(N+1)$$ matrix representing a linear equation system. It should be full-rank.
+6. Solve using Gaussian Elimination. The output should be the $$N\times N$$ identity matrix along with an $$N$$ bit solution column - the initial state of all bits in the MultiLFSR.
+7. Using those seed values, decrypt the entire ciphertext. 
 
 # Further reading
-https://www.springer.com/gp/book/9783642173417  
-https://www.iasj.net/iasj?func=fulltext&aId=88499  
-https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf  
-
-
-
-
-
-TODO - 
-    @ mentions
-    change blog header footers
-    check horizontal overflow on mobile
-    brevify
-    math symbol sum, represent sbox inputs with same equation
-    center images  
-    redo some drawings  
-    crop images
-
+* [https://www.iasj.net/iasj?func=fulltext&aId=88499](https://www.iasj.net/iasj?func=fulltext&aId=88499)  
+* [http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf](http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf)  
+* [https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf](https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf)  
+* [http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf](http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf)  
 
 
 [original-challenge-link]: https://github.com/ctfs/write-ups-2016/blob/39e9a0e2adca3a3d0d39a6ae24fa51196282aae4/google-ctf-2016/homework/need-feedback-300/47799aaf18a96cc17b3dd665d857a44921fb928f91b6fb2a54aaee6c28efaa8a
@@ -619,3 +607,4 @@ TODO -
 [kpa-wiki]: https://en.wikipedia.org/wiki/Known-plaintext_attack
 [correlation-attack-wiki]: https://en.wikipedia.org/wiki/Correlation_attack
 [solution-code-repo]: https://github.com/0xa10/need-feedback-writeup
+[github-luc-lynx]: https://github.com/luc-lynx
