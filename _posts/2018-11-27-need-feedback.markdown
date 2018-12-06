@@ -5,6 +5,7 @@ date:   2018-11-27 07:47:31 -0600
 tags: crypto ctf challenge sbox linear cryptanalysis lfsr algebra 
 ---
 {% include mathjax.html %}
+<meta name="twitter:image" content="https://0xa10.github.io/images/sagemath_multilfsr_solution.png"/>
 * Table of Contents
 {:toc}
 
