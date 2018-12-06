@@ -5,6 +5,10 @@ date:   2018-11-27 07:47:31 -0600
 tags: crypto ctf challenge sbox linear cryptanalysis lfsr algebra 
 ---
 {% include mathjax.html %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@0xa10" />
+<meta name="twitter:title" content="Google CTF 2016 need-feedback challenge write-up" />
+<meta name="twitter:description" content="In this write-up I’ll present my solution to the need-feedback challenge from the 2016 Google CTF “Homework” exercises." />
 <meta name="twitter:image" content="https://0xa10.github.io/images/sagemath_multilfsr_solution.png"/>
 * Table of Contents
 {:toc}
