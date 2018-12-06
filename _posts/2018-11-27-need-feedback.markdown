@@ -394,11 +394,11 @@ Looking at each “column” of bits in the input values, from left to right, we
 <div style="overflow-x: scroll">
 <center>
 $$ 
-\begin{array}{lcccccc}
-& 0 & 0 & 0 & 0 & 0 & 0 \\
-& 0 & 0 & 1 & 1 & 1 & 1 \\
-& 0 & 1 & 1 & 0 & 1 & 1 \\
-& 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
+\begin{array}{l|c|c|c|c|c|c}
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+15 & 0 & 0 & 1 & 1 & 1 & 1 \\
+27 & 0 & 1 & 1 & 0 & 1 & 1 \\
+30 & 0 & 1 & 1 & 1 & 1 & 0 \\ \hline
 i & 1 & 2 & 3 & 4 & 5 & 6
 \end{array}
 $$
@@ -513,12 +513,12 @@ Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ L
 <div style="overflow-x: scroll">
 $$
 \begin{array}{c}
-\text{ML}_j = \displaystyle \sum_{i=1}^{5} L_{j}^{i} = L_{j}^{1} + L_{j}^{2} + L_{j}^{3} + L_{j}^{4} + L_{j}^{5}
+ML_j = \displaystyle \sum_{i=1}^{5} L_{j}^{i} = L_{j}^{1} + L_{j}^{2} + L_{j}^{3} + L_{j}^{4} + L_{j}^{5}
 \end{array}
 $$
 </div>
  
-For any $$j \equiv 0 \mod 6$$, the *MultiLFSR* output values $$\text{ML}_j, \cdots, \text{ML}_{j+6}$$ are in fact the Sbox inputs $$x_1, \cdots, x_6$$, with respect to a certain Sbox output value.  
+For any $$j \equiv 0 \mod 6$$, the *MultiLFSR* output values $$ML_j, \cdots, ML_{j+6}$$ are in fact the Sbox inputs $$x_1, \cdots, x_6$$, with respect to a certain Sbox output value.  
 As such, if we know a certain output value, for instance `5`, we can apply the Sbox equations collected earlier for output value `5`, and substitute the corresponding input bits with LFSR outputs.  
   
 <div style="overflow-x: scroll">
@@ -527,8 +527,8 @@ $$
 \text{if Sbox output #1 is 5 then:} &\\
     \quad x_2 + x_5 + x_6 &\equiv 1 \pmod{2} \\
     &\,\Downarrow \\
-    x_2 + x_5 + x_6 &= \text{ML}_2 + \text{ML}_5 + \text{ML}_6 \\
-    &= \sum_{i=1}^{5} L_{1}^{2} + \sum_{i=1}^{5} L_{5}^{i} + \sum_{i=1}^{5} L_{6}^{i} \\
+    x_2 + x_5 + x_6 &= ML_2 + ML_5 + ML_6 \\
+    &= \sum_{i=1}^{5} L_{2}^{i} + \sum_{i=1}^{5} L_{5}^{i} + \sum_{i=1}^{5} L_{6}^{i} \\
     &=  L_{2}^{1} + L_{2}^{2} + L_{2}^{3} + L_{2}^{4} + L_{2}^{5}  + L_{5}^{1} + L_{5}^{2} + L_{5}^{3} \\
     &\quad + L_{5}^{4} + L_{5}^{5} + L_{6}^{1} + L_{6}^{2} + L_{6}^{3} + L_{6}^{4} + L_{6}^{5} \equiv 1 \pmod{2} \\
 \end{aligned}
