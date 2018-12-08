@@ -21,7 +21,7 @@ In this write-up I’ll present my solution to the need-feedback challenge from 
 While the challenge itself remained unsolved during the CTF, a [solution][luc-lynx-writeup] was written up by [@luc-lynx][github-luc-lynx] slightly after the CTF ended.
 In his solution, [@luc-lynx][github-luc-lynx] utilized a meet-in-the-middle technique to reduce the keyspace to approx. $$2^{43}$$.  
 According to the write-up, revealing the key took about 3 days. 
-In my solution, I wanted to reduce the time required to recover the key to an amount of time feasible within the timespan of a CTF.
+In my solution, I wanted to reduce the time required to recover the key to an amount feasible in the duration of a CTF.
 
 To accomplish this, I had to learn and familiarize myself with a few cryptanalysis techniques, with the purpose of unraveling some of the underlying cipher components - namely the *Sbox* and the *LFSR* pseudo-random number generator.  
 My goal in this write-up was to present the mathematical intuition for the solution in an accessible manner to anyone who has an interest in crypto, but no formal mathematical background.
@@ -35,7 +35,7 @@ Among the concepts explored are buzzwords such as:
 * Cold fusion
 
 The general idea behind solving this challenge is constructing *linear equations* which hold over the entire cipher system, and solving them using parts of the *keystream*, which we can 
-"guess" or derive based on the underlying protocol (HTTP).
+"guess" or derive based on the underlying protocol - HTTP.
   
 A big thank you goes out to @Bar Katz for introducing me to the mathematical theory and intuition required to tackle this challenge way back in 2016.
   
@@ -52,7 +52,7 @@ Once extracted, you are presented with some Python code and a pcap file.
 
 The code seems to implement a secure channel or tunnel of some sort. Looking at the capture, the secret itself appears to be is a 20 part file downloaded from an HTTP server.  
 The upstream channel is passed plaintext, so we can see the `GET` requests, but the downstream HTTP responses are encrypted using the secure tunnel.  
-Our mission is to somehow decrypt the ciphertexts, and extract the 20 file parts.
+Our mission is to somehow decrypt the ciphertexts, and extract the 20-part file.
   
 We'll start by overviewing the underlying cipher system and its components.  
 # KappaCrypto
@@ -61,15 +61,15 @@ It comprises several components - a `KappaTunnelHandler` class implements an int
 Inside the tunnel, a `KappaChannel` object is instantiated, which processes messages in the upstream and downstream channels, wrapping them in `KappaMsg` objects, and then serializing them into `KappaPacket` objects which are finally sent through the tunnel.
 
 The encryption takes place prior to wrapping in `KappaMsg` objects, using the `KappaCrypto` class, which has 3 major components:
-1. 5 LFSRS, with 5 distinct and predefined coefficient sets of various bit lengths.
+1. 5 LFSRS, with 5 distinct and fixed coefficient sets of various bit lengths.
 2. An Sbox, implemented as a simple Python list.
 3. A MultiLFSR class, which combines the outputs of the aforementioned LFSRs before passing the result through the Sbox. 
 
 **LFSR** stands for [linear feedback shift register][lfsr-wiki], and is a simple pseudorandom number generator, which emits a single bit each round.
 
-**Sbox** stands for [Substition-box][sbox-wiki] is simply a construct which takes in values in a given range and outputs values in a given range. More on the purpose of the Sbox in the next segments.
+**Sbox** stands for [Substition-box][sbox-wiki] is simply a construct which takes in values in a given range and outputs values in a given range. Generally speaking, the role of an Sbox in a given block cipher system is to reduce linearity. 
 
-`KappaCrypto` takes these two basic cryptographic constructs and chains them together within the *MultiLFSR* class - which is responsible for taking in a seed and outputting a keystream with which the plaintext is XORed.
+`KappaCrypto` takes these two basic cryptographic constructs and chains them together in the *MultiLFSR* class - which is also the top-level element in the cihper - responsible for taking in a seed and producing a keystream with which the plaintext is XORed.
 {% include captioned_image.html url="/images/cipher_design.svg" style="width: 80vh" description="Overview of the KappaCrypto cipher system" %}
   
 {::options parse_block_html="true" /}
@@ -92,9 +92,9 @@ The encryption takes place prior to wrapping in `KappaMsg` objects, using the `K
 </figure>
 {::options parse_block_html="false" /}
  
-The `MultiLFSR` is seeded by hashing a key and initialization vector (initialized to 0) to generate enough random bits to fill all the LFSR states. 
+The `MultiLFSR` is seeded by hashing a key and [initialization vector][iv-wiki] (initialized to 0) to generate enough random bits to fill all the LFSR states. 
 Recovering the LFSR states is equivalent to recovering the key.  
-The cipher system supports reseeding by incrementing the IV value, but luckily for us, the code indicates that this feature remains unimplemented:
+The cipher system supports reseeding by incrementing the **IV** value, but luckily for us, the code indicates that this feature remains unimplemented:
 {::options parse_block_html="true" /}
 <figure>
 {% highlight python %}
@@ -114,7 +114,7 @@ We are also provided with a pcap file containing an encrypted session, and we wa
 {% include captioned_image.html url="/images/coeff_count.png" description="Sum of all LFSR lengths" style="width: 60vh" %}
 
 ## Linear feedback shift registers
-LFSRs are simple [PRNG][prng-wiki] constructs, which are commonly used in hardware applications due to their speed and simplicity.
+LFSRs are [PRNG][prng-wiki] constructs, which are commonly used in hardware applications due to their speed and simplicity.
 LFSRs are used (to varying degrees of security) in many ciphers, such as the ones implemented in GSM ([A5/1][a51-wiki], [A5/2][a52-wiki]), Bluetooth ([E0][e0-wiki]), and various digital broadcast mediums.
 
 A famous example - the [Content Scramble System][css-wiki], which was used to encrypt DVDs and was implemented using LFSRs, was [completely broken][css-wiki-hack] partially on account of its use of LFSRs.
@@ -157,13 +157,13 @@ The LFSR is shifted each round, the MSB becomes the output bit, and a zero bit i
 
 {% include captioned_image.html url="/images/lfsr_schema.svg" description="A 10 bit LFSR, with taps at 0,1,2,3,9,0xa" style="width: 80vh"%}
 
-Note that the MSB is XORed with itself at the output bit position, which causes the register to be naturally truncated at its bit length each round, as any $$\text{'1'}$$ bit that reaches the output position will  be nulled. This is just an implementation choice since Python integers are of arbitrary length.  
+Note that the MSB is XORed with itself at the output bit position, which causes the register to be naturally truncated at its bit length each round, as any $$\text{'1'}$$ bit that reaches the output position will  be nulled. This is probably just an implementation choice since Python integers are of arbitrary length.  
 
 ### Linear equation systems 
-The LFSR construct is linear - the state of the LFSR (and its outputs) can be represented as a linear function or combination of the previous state bits.
+The LFSR construct is linear - meaning the state of the LFSR (and its outputs) can be represented as a linear function or combination of the previous state bits.
 Practically - any output from the LFSR can be expressed as a combination (e.g. addition modulo 2) of some of its initial state bits, i.e. the **seed**.  
 
-This means that we can construct equations to represent the output bits at any round. Given enough outputs from the actual LFSR, we can recover the initial state/seed value.
+This means that we can generate equations to represent the output bits at any round. Given enough outputs from the actual LFSR, we can recover the initial state/seed value.
 Generally speaking - to recover the initial state for an $$n$$-bit LFSR, we need $$n$$ outputs generated from that seed.
 We can then construct a [system of equations][les-wiki] (same as the ones you were taught in school), where each of the LFSRs bits is a variable, and the solution is the initial state.
 
@@ -207,7 +207,7 @@ $$
 </div>
 {::options parse_block_html="false" /}
  
-According to this, the initial state vector $$ [a_0, a_1, a_2, a_3] $$ was $$ [0, 0, 0, 1] $$, or the value 8.  
+According to this, the initial state vector $$ [a_0, a_1, a_2, a_3] $$ was $$ [0, 0, 0, 1] $$, or the value **8**.  
 We can verify this using the KappaCrypto LFSR code:  
 {% include captioned_image.html url="/images/lfsr_example.png" description="" style="width: 60vh" %}
   
@@ -249,14 +249,14 @@ $$
 </figure>
 {::options parse_block_html="false" /}
 
-The linear equation system (in matrix form) can then be solved with Gaussian Elimination or any other method of reducing the matrix to its echelon form - in this case I let Sagemath do the heavy lifting: 
+The linear equation system (in matrix form) can then be solved with Gaussian Elimination or any other method of reducing the matrix to its echelon form - here I let Sagemath do the heavy lifting: 
 {% include captioned_image.html url="/images/sagemath_solution.png" description="Since the matrix rank is full-rank, we can solve for all 4 variable columns." style="width: 75vh" %}
 
   
-Now, to generalize this, we want to be able to generate systems of equations for any LFSR of length n, that we can join with an $$n$$ element output vector to solve for the original seed.
+Now, to generalize this, we want to be able to generate systems of equations for any LFSR of length $$n$$, that we can join with an $$n$$ element output vector to solve for the original seed.
 The general concept and notation for this can be found [here][lfsr-article], though I did have to port some of these concepts to apply on the `KappaCrypto` LFSR.
   
-Eventually, I ended up with a function that takes in an LFSR (or more specifically, its coefficient vector, in tap form) and outputs a set of linear equations describing its outputs:
+Eventually, I ended up with a function that takes in an LFSR (or more accurately, its coefficient vector, in tap form) and outputs a set of linear equations describing its outputs:
 {::options parse_block_html="true" /}
 <figure>
 {% highlight python %}
@@ -292,7 +292,8 @@ The next component in *KappaCrypto* is the *MultiLFSR* class - this class bands 
 It’s also responsible for passing them through the *Sbox*, but more on that later.    
 Given that we already know how to represent an LFSRs output bits as linear combinations of its state bits, and that XORing those output bits is simply addition modulo 2, we can represent the *MultiLFSRs* output bits as linear combinations of all its LFSRs state bits. 
   
-To illustrate this, let’s return to our toy-LFSR $$A$$ from before, this time with an additional 5 bit toy-LFSR $$B$$ in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$. When seeded to 12, the first 5 outputs are $$[0, 1, 0, 1, 1]$$.
+To illustrate this, let’s return to our toy-LFSR $$A$$ from before, this time with an additional 5 bit toy-LFSR $$B$$ in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$.  When toy-LFSR $$B$$ is seeded to $$12$$, its first 5 outputs are $$[0, 1, 0, 1, 1]$$. When toy-LFSR $$A$$ is seeded to $$8$$, its first 5 outputs are $$[1, 0, 1, 1, 1]$$.  
+Consider the following equation systems, and the way they can be combined:
 {::options parse_block_html="true" /}
 <div style="overflow-x: scroll">
 <center>
@@ -337,21 +338,20 @@ We can add the equation systems to each other to obtain a new linear equation sy
 Adding the equation systems together can represented by stacking their matrices.
 
 {% include captioned_image.html url="/images/sagemath_multilfsr_solution.png" description="sa, sb are 9 outputs from the two toy-LFSRs above. By stacking the two LFSR equation sets horizontally (augmenting) and setting the results vector to a be the combination of both output vectors, we can solve for both initial state vectors - 8 and 12." %}
-In other words, the *MultiLFSR* construct is still fully linear, and we can still represent its outputs as linear combinations of the initial state bits, and recover them given enough outputs.
+In other words, the *MultiLFSR* construct is still fully linear - the outputs from the MultiLFSR can be represented as linear combinations of its initial state bits, meaning that given sufficient known outputs we can recover those state bits.  
 More concretely, for a *MultiLFSR* containing LFSRs with a total of $$N$$ bits between them, we need $$N$$ outputs to recover the original state.
-This component doesn’t really add any significant strength to the cipher system, and may even be worse than a normal LFSR with the equivalent bit length.
 
 
 ## Substitution boxes
 As we’ve seen, LFSRs by themselves do not offer a great deal of security for block ciphers. The linear relationship between their inputs and outputs make it easy to reverse their action and solve for the indeterminate or key bits.
-This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to m bit values, with the purpose of reducing linearity, to some extent obstructing our use of linear equation systems.
+This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to $$m$$ bit values, with the purpose of reducing linearity, to some extent obstructing our use of linear equation systems.
   
 In KappaCrypto, the Sbox maps from 6 bit inputs to 4 bit outputs, meaning each output is associated with $$2^2$$ = 4 inputs. The lossiness is what makes it hard for us to reverse the Sbox - given an arbitrary 4 bit output from the Sbox, there are 4 different inputs which could have led to that output value. 
   
 
-The Sbox is put to use in the MultiLFSR class - every 6 bits of outputs from the MultiLFSR (generated in 6 rounds of the comprised $$\text{LFSR}$$s) are concatenated to form a 6 bit word, which is then used as input for Sbox.
+The Sbox is put to use in the MultiLFSR class - every 6 bits of output from the MultiLFSR (generated in 6 rounds of the comprised $$\text{LFSR}$$s) are concatenated to form a 6 bit tuple, which is then used as input for Sbox.
   
-To recap our problem - prior to passing through the Sbox we could represent the keystream as linear combinations of the key/seed bits - but the Sbox prevents us from doing that, since its action cannot be naively represented with linear equations. 
+To recap our problem - prior to passing through the Sbox we could represent the keystream bits as linear combinations of the key/seed bits - but the Sbox prevents us from doing that, since its action cannot be naively represented with linear equations. 
   
 ### Linear cryptanalysis
 In order to overcome this obstacle, we need to find linear equations which hold over the Sbox function - in other words, find relations between the inputs bits which “survive” being put through the Sbox.
@@ -417,7 +417,7 @@ $$
 * In column `1` - **only** $$\text{'0'}$$ bits occur!
 This shows a significant bias in the Sbox - the MSB in each input value leading to output value `7` is $$\text{'0'}$$ in 4 out of 4 cases. 
 
-Given this new information, lets say we observe the Sbox output the value `7`. At the most basic level, we know the four inputs which could have led to this value, with each input value having (ostensibly) a 1 in 4 chance of causing this output value. This doesn’t help us much. But we also know, regardless of the correct input value out of the 4, that its MSB was $$\text{'0'}$$.
+Given this new information, lets say we observe the Sbox output the value `7`. We know the four inputs which could have led to this value, with each input value having (ostensibly) a 1 in 4 chance of causing this output value.  This doesn’t help us much. But we also know, regardless of the correct input value out of the 4, that its MSB was $$\text{'0'}$$.
   
 This forms the basis for our solution - we want to try and find single bits, or linear combinations of bits from the input values, which have strong or even absolute biases with regards to a certain output value. For the purpose of this solution I won’t be using the non-absolute biases, since they complicate things significantly and the challenge can be solved without using them.
 
@@ -425,9 +425,9 @@ This forms the basis for our solution - we want to try and find single bits, or 
 
   
 ### Boolean functions
-To generalize this one step further, we’re going to utilize [boolean functions][bool-funcs-wiki] (i.e. functions that return either $$\text{'0'}$$ or $$\text{'1'}$$) that take the 6 input bits $$x_1, x_2, x_3, x_4, x_5, x_6$$ as parameters and return a linear combination of them (i.e. addition modulo 2).
+To generalize this one step further, we’re going to utilize [boolean functions][bool-funcs-wiki] (i.e. functions that result in either $$\text{'0'}$$ or $$\text{'1'}$$) that take the 6 input bits $$x_1, x_2, x_3, x_4, x_5, x_6$$ as indeterminates and return a linear combination of them (i.e. addition modulo 2).  
 For instance, $$x_1 + x_3 + x_4$$ is a boolean function which combines the first, third, and fourth bits. 
-Our goal is to find all such boolean functions that have the same result over all 4 input values leading to a specific output value. 
+Our goal is to find all such boolean functions that have the **same result over all 4 input values** leading to a specific output value. 
 Looking at the 4 input values for output value `14` again, and applying the boolean function $$x_1 + x_3 + x_4$$ on each of them, we end up with the following equations
 {::options parse_block_html="true" /}
 <div style="overflow-x: scroll">
@@ -442,7 +442,7 @@ $$
 </div>
 {::options parse_block_html="false" /}
   
-This means that for the output value `14`, the boolean equation $$x_1 + x_3 + x_4$$ holds *100%* of the time. Recall that $$x_1 \cdots x_n$$, the input bits to the *Sbox*, are in fact the output bits from the *MultiLFSR*, and as such we can represent them as linear combinations of the state bits. 
+This means that for the output value `14`, the boolean equation $$x_1 + x_3 + x_4 \equiv 0 \pmod{2}$$ holds *100%* of the time. Recall that $$(x_1, \cdots, x_n)$$, the input bits to the *Sbox*, are in fact the output bits from the *MultiLFSR*, and as such we can represent them as linear combinations of the state bits. 
 So we’ve effectively found a linear equation which holds over the Sbox for a certain output, and can be expressed using the key/seed bits.
   
 Another example of a linear equation which holds over the Sbox for output value `14` is  $$x_3 + x_4 + x_5 = 1$$:
@@ -499,12 +499,12 @@ $$
 </div>
 
 To implement our solution, we take each possible Sbox output, and map its 4 corresponding input values. 
-For those 4 input values, we iterate over all possible $$2^6$$ masks, apply them to each input value, and sum the results bits modulo 2. If all 4 results are the same, we’ve successfully found a linear equation which holds over the Sbox, and we set it aside.To recap - for each given Sbox output value, and the four corresponding inputs,
+For those 4 input values, we iterate over all possible $$2^6$$ masks, apply them to each input value, and sum the results bits modulo 2. If all 4 results are the same, we’ve successfully found a linear equation which holds over the Sbox, and we set it aside.  
 This logic is implemented in the `get_sbox_equations` function in the solution code.
   
 {% include captioned_image.html url="/images/sbox_equations.png" description="Example output from get_sbox_equations - for output value 5, there are 7 boolean functions, which are represented as their mask value - e.g. the mask value 010011 (19) results in 1, meaning the linear equation $$x_2 + x_5 + x_6 \equiv 1 \pmod{2}$$ holds over output value 5." style="width: 95vh" %}
   
-Eventually, about 128 such boolean functions exist which holds over the *KappaCrypto* Sbox.
+Eventually, about 128 such boolean functions exist which holds over the *KappaCrypto* Sbox.  
 This means, that for each known output from the LFSR, we gain on average 8 linear equations that hold over the entire cipher, and go toward solving the initial state vectors of the LFSRs.      
 Note that some of these equations may be linearly dependant and as such redundant, but we are still gleaning a significant amount of data from each known Sbox output - which is in fact the keystream.
   
@@ -513,7 +513,7 @@ Note that some of these equations may be linearly dependant and as such redundan
 ## Chaining LFSR, MultiLFSR and Sbox equations
 We’ve chained together several components, and managed to establish linear relationships between the initial state values (i.e. the key/secret) and the keystream. 
 We have boolean functions that hold over the Sbox with total bias, comprising the 6 Sbox input bits - $$(x_1, x_2, x_3, x_4, x_5, x_6)$$.
-Recall that those 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.
+Recall that those 6 Sbox input bits are in fact 6 outputs from the *MultiLFSR*, and that each of those 6 outputs is actually the sum of all 5 LFSRs in a single round.  
 Formally - If $$L_{j}^{i}$$ is the $$j^{th}$$ round output from the $$i^{th}$$ LFSR, then the *MultiLFSR* $$ML$$'s output in the $$j^{th}$$ round is:
 
 <div style="overflow-x: scroll">
@@ -553,12 +553,12 @@ More concretely, we can stage a [known-plaintext attack][kpa-wiki] (or a [correl
 {% include captioned_image.html url="/images/wireshark_cap.png" description="The request and response are prefixed with KappaMsg headers - Size (in orange) and MsgType (in turquoise)" %}
   
 Since the upstream channel is unencrypted, we can see that the underlying protocol being tunneled through *KappaCrypto* is simply HTTP.
-Since the request structure is that of a valid HTTP request, it's safe to assume the response will be a valid HTTP response - meaning it starts with something along the lines of `'HTTP/1.0 200 OK'`, setting aside error codes and HTTP versions for now.
+Since the request structure is that of a valid HTTP request, it's safe to assume the response will be a valid HTTP response - meaning it starts with something along the lines of `'HTTP/1.0 200 OK'`, assuming no errors occured and the HTTP version is `1.0` (which it is in the Python 3.5.1 HTTP server implementation).
   
 With this knowledge, we can retrieve `len(‘HTTP/1.0 200 OK')` worth of keystream from each response, simply by stripping the *KappaMsg* header from the first block, and XORing the ciphertext with the crib.
   
 Once we have our keystream bytes, we can divide them into 4 bit nibbles - each nibble is an Sbox output. 
-For each Sbox output, we refer to our Sbox equations for that output, and expand them using the equations representing the *MultiLFSR* output values, which are composed of variables representing the $$60$$ bits from all $$5$$ LFSRs.
+For each Sbox output, we refer to our Sbox equations for that output, and expand them using the equations representing the *MultiLFSR* output values, which are composed of variables representing the $$60$$ bits from all $$5$$ LFSRs.  
 We continue doing this until we collect $$60$$ linearly independent equations, and then solve for the original seed value.
 If our crib guess was wrong (wrong HTTP version, for instance), we will most likely not come up with a valid solution, and can try again with a different guess.
 
@@ -572,7 +572,7 @@ Once we have the original seed values, we simply instantiate a *KappaCrypto* obj
 
 I’ll refer you to the [solution code][solution-code-repo] for further details. 
 While most of the code samples in this write up are in Sagemath (for clarity’s sake), I initially wrote my solution in Python3 + numpy.  
-I also opted to implement some of the matrix operations (such as Gaussian Elimination) myself since numpy was being difficult with non-square matrices and with Gaussian Elimination in $$GF(2)$$
+I also opted to implement some of the matrix operations (such as Gaussian Elimination) myself since numpy was being difficult with non-square matrices and with Gaussian Elimination in $$GF(2)$$.
 
 ## Overview of the attack process
 1. Generate equations representing the outputs of all 5 LFSRs, and join them to represent the MultiLFSR bits, before the Sbox
@@ -587,11 +587,12 @@ I also opted to implement some of the matrix operations (such as Gaussian Elimin
 7. Using those seed values, decrypt the entire ciphertext. 
 
 # Further reading
-* [https://www.iasj.net/iasj?func=fulltext&aId=88499](https://www.iasj.net/iasj?func=fulltext&aId=88499)  
-* [http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf](http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf)  
-* [https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf](https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf)  
-* [http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf](http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf)  
-
+<div style="overflow-x: scroll">
+* [Attacking of Geffe Generator by Solving Linear Equations System of the Generated Sequence](https://www.iasj.net/iasj?func=fulltext&aId=88499)  
+* [The Block Cipher Companion](http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf)  
+* [Lecture Notes on Cryptographic Boolean Functions](https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf)  
+* [A Tutorial on Linear and Differential Cryptanalysis](http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf)  
+</div>
 
 [original-challenge-link]: https://github.com/ctfs/write-ups-2016/blob/39e9a0e2adca3a3d0d39a6ae24fa51196282aae4/google-ctf-2016/homework/need-feedback-300/47799aaf18a96cc17b3dd665d857a44921fb928f91b6fb2a54aaee6c28efaa8a
 [luc-lynx-writeup]: https://github.com/luc-lynx/need_feedback_writeup/blob/master/README.md
@@ -602,6 +603,7 @@ I also opted to implement some of the matrix operations (such as Gaussian Elimin
 [e0-wiki]: https://en.wikipedia.org/wiki/E0_(cipher)
 [a51-wiki]: https://en.wikipedia.org/wiki/A5/1
 [a52-wiki]: https://en.wikipedia.org/wiki/A5/2
+[iv-wiki]: https://en.wikipedia.org/wiki/Initialization_vector
 [lfsr-wiki-crypto]: https://en.wikipedia.org/wiki/Linear-feedback_shift_register#Uses_in_cryptography
 [css-wiki-hack]: https://en.wikipedia.org/wiki/Content_Scramble_System#Cryptanalysis
 [galois-lfsr-wiki]: https://www.nayuki.io/page/galois-linear-feedback-shift-register
