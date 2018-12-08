@@ -292,7 +292,8 @@ The next component in *KappaCrypto* is the *MultiLFSR* class - this class bands 
 It’s also responsible for passing them through the *Sbox*, but more on that later.    
 Given that we already know how to represent an LFSRs output bits as linear combinations of its state bits, and that XORing those output bits is simply addition modulo 2, we can represent the *MultiLFSRs* output bits as linear combinations of all its LFSRs state bits. 
   
-To illustrate this, let’s return to our toy-LFSR $$A$$ from before, this time with an additional 5 bit toy-LFSR $$B$$ in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$.  When toy-LFSR $$B$$ is seeded to $$12$$, its first 5 outputs are $$[0, 1, 0, 1, 1]$$. When toy-LFSR $$A$$ is seeded to $$8$$, its first 5 outputs are $$[1, 0, 1, 1, 1]$$.  
+To illustrate this, let’s return to our toy-LFSR $$A$$ from before, this time with an additional 5 bit toy-LFSR $$B$$ in the mix. It’s coefficients will be $$[ 0x0, 0x1, 0x3, 0x4, 0x5 ]$$ and its state bits will be represented as $$[b_0, b_1, b_2, b_3, b_4]$$.  
+When toy-LFSR $$B$$ is seeded to $$12$$, its first 5 outputs are $$[0, 1, 0, 1, 1]$$. When toy-LFSR $$A$$ is seeded to $$8$$, its first 5 outputs are $$[1, 0, 1, 1, 1]$$.  
 Consider the following equation systems, and the way they can be combined:
 {::options parse_block_html="true" /}
 <div style="overflow-x: scroll">
@@ -587,12 +588,14 @@ I also opted to implement some of the matrix operations (such as Gaussian Elimin
 7. Using those seed values, decrypt the entire ciphertext. 
 
 # Further reading
+{::options parse_block_html="true" /}
 <div style="overflow-x: scroll">
-* [Attacking of Geffe Generator by Solving Linear Equations System of the Generated Sequence](https://www.iasj.net/iasj?func=fulltext&aId=88499)  
-* [The Block Cipher Companion](http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf)  
-* [Lecture Notes on Cryptographic Boolean Functions](https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf)  
-* [A Tutorial on Linear and Differential Cryptanalysis](http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf)  
+* [Attacking of Geffe Generator by Solving Linear Equations System of the Generated Sequence][geffe-gen-article]  
+* [The Block Cipher Companion][block-cipher-companion]  
+* [Lecture Notes on Cryptographic Boolean Functions][anna-canteaut-poly]  
+* [A Tutorial on Linear and Differential Cryptanalysis][linear-differential-ca-tut]   
 </div>
+{::options parse_block_html="false" /}
 
 [original-challenge-link]: https://github.com/ctfs/write-ups-2016/blob/39e9a0e2adca3a3d0d39a6ae24fa51196282aae4/google-ctf-2016/homework/need-feedback-300/47799aaf18a96cc17b3dd665d857a44921fb928f91b6fb2a54aaee6c28efaa8a
 [luc-lynx-writeup]: https://github.com/luc-lynx/need_feedback_writeup/blob/master/README.md
@@ -615,3 +618,7 @@ I also opted to implement some of the matrix operations (such as Gaussian Elimin
 [correlation-attack-wiki]: https://en.wikipedia.org/wiki/Correlation_attack
 [solution-code-repo]: https://github.com/0xa10/need-feedback-writeup
 [github-luc-lynx]: https://github.com/luc-lynx
+[geffe-gen-article]: https://www.iasj.net/iasj?func=fulltext&aId=88499
+[block-cipher-companion]: http://antoanthongtin.vn/Portals/0/UploadImages/kiennt2/Sach/Sach-CSDL4/The_Block_Cipher_Companion.pdf
+[anna-canteaut-poly]: https://www.rocq.inria.fr/secret/Anne.Canteaut/poly.pdf
+[linear-differential-ca-tut]: http://www.engr.mun.ca/~howard/PAPERS/ldc_tutorial.pdf
