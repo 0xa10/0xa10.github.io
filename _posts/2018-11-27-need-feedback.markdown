@@ -588,14 +588,11 @@ I also opted to implement some of the matrix operations (such as Gaussian Elimin
 7. Using those seed values, decrypt the entire ciphertext. 
 
 # Further reading
-{::options parse_block_html="true" /}
-<div style="overflow-x: scroll">
 * [Attacking of Geffe Generator by Solving Linear Equations System of the Generated Sequence][geffe-gen-article]  
 * [The Block Cipher Companion][block-cipher-companion]  
 * [Lecture Notes on Cryptographic Boolean Functions][anna-canteaut-poly]  
 * [A Tutorial on Linear and Differential Cryptanalysis][linear-differential-ca-tut]   
 </div>
-{::options parse_block_html="false" /}
 
 [original-challenge-link]: https://github.com/ctfs/write-ups-2016/blob/39e9a0e2adca3a3d0d39a6ae24fa51196282aae4/google-ctf-2016/homework/need-feedback-300/47799aaf18a96cc17b3dd665d857a44921fb928f91b6fb2a54aaee6c28efaa8a
 [luc-lynx-writeup]: https://github.com/luc-lynx/need_feedback_writeup/blob/master/README.md
