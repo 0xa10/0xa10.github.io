@@ -67,9 +67,9 @@ The encryption takes place prior to wrapping in `KappaMsg` objects, using the `K
 
 **LFSR** stands for [linear feedback shift register][lfsr-wiki], and is a simple pseudorandom number generator, which emits a single bit each round.
 
-**Sbox** stands for [Substition-box][sbox-wiki] is simply a construct which takes in values in a given range and outputs values in a given range. Generally speaking, the role of an Sbox in a given block cipher system is to reduce linearity. 
+**Sbox** stands for [Substition-box][sbox-wiki], and is a construct which takes in values in a given range and outputs values in a given range. Generally speaking, the role of an Sbox in a given block cipher system is to reduce linearity. 
 
-`KappaCrypto` takes these two basic cryptographic constructs and chains them together in the *MultiLFSR* class - which is also the top-level element in the cihper - responsible for taking in a seed and producing a keystream with which the plaintext is XORed.
+`KappaCrypto` takes these two basic cryptographic constructs and chains them together in the *MultiLFSR* class - which is also the top-level element in the cipher - responsible for taking in a seed and producing a keystream with which the plaintext is XORed.
 {% include captioned_image.html url="/images/cipher_design.svg" style="width: 80vh" description="Overview of the KappaCrypto cipher system" %}
   
 {::options parse_block_html="true" /}
@@ -92,7 +92,7 @@ The encryption takes place prior to wrapping in `KappaMsg` objects, using the `K
 </figure>
 {::options parse_block_html="false" /}
  
-The `MultiLFSR` is seeded by hashing a key and [initialization vector][iv-wiki] (initialized to 0) to generate enough random bits to fill all the LFSR states. 
+The `MultiLFSR` is seeded by hashing a key and [initialization vector][iv-wiki] (initially 0) to generate enough random bits to fill all the LFSR states. 
 Recovering the LFSR states is equivalent to recovering the key.  
 The cipher system supports reseeding by incrementing the **IV** value, but luckily for us, the code indicates that this feature remains unimplemented:
 {::options parse_block_html="true" /}
@@ -250,7 +250,7 @@ $$
 {::options parse_block_html="false" /}
 
 The linear equation system (in matrix form) can then be solved with Gaussian Elimination or any other method of reducing the matrix to its echelon form - here I let Sagemath do the heavy lifting: 
-{% include captioned_image.html url="/images/sagemath_solution.png" description="Since the matrix rank is full-rank, we can solve for all 4 variable columns." style="width: 75vh" %}
+{% include captioned_image.html url="/images/sagemath_solution.png" description="Since the matrix rank is full-rank, we can solve for all 4 variable columns. Note that when the matrix is in echelom form, the rightmost column is the solution or seed." style="width: 75vh" %}
 
   
 Now, to generalize this, we want to be able to generate systems of equations for any LFSR of length $$n$$, that we can join with an $$n$$ element output vector to solve for the original seed.
@@ -277,7 +277,7 @@ def make_lfsr_equations(coefficients, count):
 </figure>
 {::options parse_block_html="false" /}
 
-{% include captioned_image.html url="/images/sagemath_lfsr_example.png" description="Example of output for the toy-LFSR from before - note that rightmost column is actually the output bit, and is redundant. Below that, the generated equations are multiplied with the seed vector to generate the LFSRs outputs." style="width: 100vh" %}
+{% include captioned_image.html url="/images/sagemath_lfsr_example.png" description="Example of output for the toy-LFSR from before - note that rightmost column here actually represents the output bit, and is redundant. Below that, the generated equations are multiplied with the seed vector to generate the LFSRs outputs." style="width: 100vh" %}
 
 To clarify - each row in the resulting matrix represents a linear combination of some of the initial state bits - same as the linear equation system from before. 
 To get the LFSRs $$n^{th}$$ output, we can transpose and multiply the $$n^{th}$$ row with the initial state vector. Similarly, we can multiply an $$n^{th}$$ row matrix with the initial state vector to get $$n$$ consecutive outputs.
@@ -345,7 +345,7 @@ More concretely, for a *MultiLFSR* containing LFSRs with a total of $$N$$ bits b
 
 ## Substitution boxes
 As we’ve seen, LFSRs by themselves do not offer a great deal of security for block ciphers. The linear relationship between their inputs and outputs make it easy to reverse their action and solve for the indeterminate or key bits.
-This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to $$m$$ bit values, with the purpose of reducing linearity, to some extent obstructing our use of linear equation systems.
+This is where the Sbox comes in - an Sbox is a component which maps from $$n$$ to $$m$$ bit values, with the purpose of reducing linearity, to some extent preventing us from using linear equation systems.
   
 In KappaCrypto, the Sbox maps from 6 bit inputs to 4 bit outputs, meaning each output is associated with $$2^2$$ = 4 inputs. The lossiness is what makes it hard for us to reverse the Sbox - given an arbitrary 4 bit output from the Sbox, there are 4 different inputs which could have led to that output value. 
   
@@ -426,7 +426,7 @@ This forms the basis for our solution - we want to try and find single bits, or 
 
   
 ### Boolean functions
-To generalize this one step further, we’re going to utilize [boolean functions][bool-funcs-wiki] (i.e. functions that result in either $$\text{'0'}$$ or $$\text{'1'}$$) that take the 6 input bits $$x_1, x_2, x_3, x_4, x_5, x_6$$ as indeterminates and return a linear combination of them (i.e. addition modulo 2).  
+To generalize this one step further, we’re going to utilize [boolean functions][bool-funcs-wiki] (i.e. functions that can output either $$\text{0}$$ or $$\text{1}$$) that take the 6 input bits $$x_1, x_2, x_3, x_4, x_5, x_6$$ as indeterminates and return a linear combination of them (i.e. addition modulo 2).  
 For instance, $$x_1 + x_3 + x_4$$ is a boolean function which combines the first, third, and fourth bits. 
 Our goal is to find all such boolean functions that have the **same result over all 4 input values** leading to a specific output value. 
 Looking at the 4 input values for output value `14` again, and applying the boolean function $$x_1 + x_3 + x_4$$ on each of them, we end up with the following equations
